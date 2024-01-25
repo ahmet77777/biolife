@@ -1,0 +1,31 @@
+{% extends 'a_panel/main.html' %}
+{% block name %}Category Edit{% endblock name %}
+{% block url %}Category Edit{% endblock url %}
+{% block name_2 %}Category Edit{% endblock name_2 %}
+{% block name_2_url %}{% url 'category_all' %}{% endblock name_2_url %}
+{% block url_name %}Category{% endblock url_name %}
+
+{% block main %}
+{% load static %}
+
+    <div style="margin: 10px;">
+        
+           <form action="" method="post">
+            {% csrf_token %}
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label class="form-label" for="basicpill-firstname-input">Category name</label>
+                    {{form.name}}
+                    <br>
+                    <label class="form-label" for="basicpill-firstname-input">Icon name</label>
+                    {{form.icon}}
+                
+                    
+                </div>
+                
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+                {% endblock main %}

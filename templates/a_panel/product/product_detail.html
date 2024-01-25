@@ -1,0 +1,36 @@
+{% extends 'a_panel/main.html' %}
+{% block name %}Product Detail{% endblock name %}
+{% block url %}Prodcut All{% endblock url %}
+{% block name_2 %}Product Detail{% endblock name_2 %}
+{% block name_2_url %}{% url 'product_all' %}{% endblock name_2_url %}
+{% block url_name %}Product all{% endblock url_name %}
+
+{% block main %}
+{% load static %}
+
+<div class="col-xl-6">
+    <div class="card">
+        <div class="card-body">
+
+ 
+            <div class="row">
+                <h4 class="card-title-desc">Name: {{select_pro.name}}</h4>
+                <h4 class="card-title-desc">Subcategory: {{select_pro.subcategory}}</h4>
+                <h4 class="card-title-desc">Price new: {{select_pro.price_new}}</h4>
+                <h4 class="card-title-desc">Price old: {{select_pro.price_old}}</h4>
+                <h4 class="card-title-desc">DESC: {{select_pro.desc}}</h4>
+                <h4 class="card-title-desc">Created: {{select_pro.created_at|date:"d/m/y H:i "}}</h4>
+                <h4 class="card-title-desc">Image: </h4>
+            </div>
+
+            <div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-interval="3000">
+                <div class="carousel-inner" role="listbox">
+                   
+                        <img style="width: 100%;height: 300px;" src="{{select_pro.image.url}}" alt="">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+                {% endblock main %}

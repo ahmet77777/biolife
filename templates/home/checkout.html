@@ -1,0 +1,161 @@
+{% extends "home/main.html" %}
+{% block main %}
+    <!--Hero Section-->
+    <div class="hero-section hero-background">
+        <h1 class="page-title">Organic Fruits</h1>
+    </div>
+
+    <!--Navigation section-->
+    <div class="container">
+        <nav class="biolife-nav">
+            <ul>
+                <li class="nav-item"><a href="index-2.html" class="permal-link">Home</a></li>
+                <li class="nav-item"><span class="current-page">ShoppingCart</span></li>
+            </ul>
+        </nav>
+    </div>
+
+    <div class="page-contain checkout">
+
+        <!-- Main content -->
+        <div id="main-content" class="main-content">
+            <div class="container sm-margin-top-37px">
+                <div class="row">
+
+                    <!--checkout progress box-->
+                    <div style="border: 1px solid rgb(155, 148, 148);padding: -10px;"; class="col-lg-7 col-md-7 col-sm-6 col-xs-12">
+                        <div class="checkout-progress-wrap">
+                            <ul class="steps">
+                                <li class="step 2nd">
+                                    <div  class="checkout-act active">
+                                        <h3 class="title-box"><span class="number">1</span>Shipping</h3>
+                                        <div class="login-on-checkout">
+                                            <p class="form-row">
+                                               <form action="" method="post">
+                                                {% csrf_token %}
+                        
+                                                    <div class="row">
+                                                        <div class="col-sm-6">
+                                                            <label>{{form.name.label}}:</label>
+                                                            <span style="margin-left:35px ;">{{form.name}}</span>
+                                                        </div><!-- End .col-sm-6 -->
+                    
+                                                        <div class="col-sm-6">
+                                                            <label>{{form.surname.label}}:</label>
+                                                            {{form.surname}}
+                                                        </div><!-- End .col-sm-6 -->
+                                                        
+                                                        
+                                                        
+                                                        <div class="col-sm-6">
+                                                            <label>Phone:</label>
+                                                            <span style="margin-left: 33px;">{{form.phone_number}}</span>
+                                                        </div><!-- End .col-sm-6 -->
+                                                        
+                                                        <div class="col-sm-6">
+                                                            <label>{{form.address.label}}:</label>
+                                                            <span style="margin-left: 6px;">{{form.address}}</span>
+                                                        </div><!-- End .col-sm-6 -->
+                                                        
+                                                        
+                                                        
+                                                        <div class="col-sm-12">
+                                                            <span><label>{{form.note.label}}</label>
+                                                            {{form.note}}
+                                                        </div><!-- End .col-sm-6 -->
+                                                        <div class="col-sm-12">
+                                                            
+                                                        </div><!-- End .col-sm-6 -->
+                                                        <div class="col-sm-4">
+                                                            <span><label>{{form.payment_type.label}}:</label>
+                                                            <span style="margin-left: 10px;">{{form.payment_type.0}}</span>
+                                                        </div><!-- End .col-sm-6 -->
+
+                                                        <div class="col-sm-4">
+                                                    
+                                                            {{form.payment_type.1}}
+                                                        </div><!-- End .col-sm-6 -->
+
+                                                        <div style="margin-left: 30%;" class="col-sm-12">
+                                                            <button class="form-control" style="background-color: rgba(255, 238, 0, 0.829);color: black;width: 50%;" type="submit" name="btn-sbmt" class="btn">Order</button>
+
+                                                        </div><!-- End .col-sm-6 -->
+                                                    </form>
+                                                        
+                                                
+                                                </div><!-- End .row -->
+                                                
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!--Order Summary-->
+                    <div style="margin-top: -50px;" class="col-lg-5 col-md-5 col-sm-6 col-xs-12 sm-padding-top-48px sm-margin-bottom-0 xs-margin-bottom-15px">
+                        <div class="order-summary sm-margin-bottom-80px">
+                            <div class="title-block">
+                                <h3 class="title">Order Summary</h3>
+                                <a href="{% url 'shopping' %}" class="link-forward">Edit cart</a>
+                            </div>
+                            <div class="cart-list-box short-type">
+                                <span class="number">2 items</span>
+                                <ul class="cart-list">
+                                    {% for i in cart.items.all %}
+                                    <li class="cart-elem">
+                                        <div class="cart-item">
+                                            <div class="product-thumb">
+                                                <a class="prd-thumb" href="#">
+                                                    <figure><img style="max-width: 113px;max-height: 113px;min-width: 113px;min-height: 113px;" src="{{i.product.image.url}}" width="113" height="113" alt="shop-cart" ></figure>
+                                                </a>
+                                            </div>
+                                            <div class="info">
+                                                <span class="txt-quantity">{{i.quatity}}X</span>
+                                                <a href="#" class="pr-name">{{i.product.name}}</a>
+                                            </div>
+                                            <div class="price price-contain">
+                                                <ins><span class="price-amount"><span class="currencySymbol">£</span>{{i.product.price_new}}</span></ins>
+                                                <del><span class="price-amount"><span class="currencySymbol">£</span>{{i.product.price_old}}</span></del>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    {% endfor %}
+                                </ul>
+                                <ul class="subtotal">
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <b class="stt-name">Subtotal</b>
+                                            <span class="stt-price">£{{cart.totalsum}}</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <b class="stt-name">Shipping</b>
+                                            <span class="stt-price">£{{cart.shipping}}</span>
+                                        </div>
+                                    </li>
+      
+                                    <li>
+                                        <div class="subtotal-line">
+                                            <b class="stt-name">total:</b>
+                                            <span class="stt-price">£{{cart.totalsum_full}}</span>
+                                            
+
+                                        </div>
+                                    </li>
+                                    
+                                    
+                               
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock main %}

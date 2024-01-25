@@ -1,0 +1,76 @@
+{% extends 'a_panel/main.html' %}
+{% block name %}Order Detail{% endblock name %}
+{% block name_2 %}Order Detail{% endblock name_2 %}
+{% block name_2_url %}{% url 'order' %}{% endblock name_2_url %}
+{% block url %}Order Detail{% endblock url %}
+{% block url_name %}Order{% endblock url_name %}
+
+{% block main %}
+{% load static %}
+<div class="row">
+    <div class="col-lg-4">
+        <div class="card border border-primary">
+            {% comment %} <div class="card-header bg-transparent border-primary">
+                <h5 class="my-0 text-primary"><i class="uil uil-user me-3"></i>Primary outline Card</h5>
+            </div> {% endcomment %}
+            <div class="card-body">
+                <h5 class="card-title ">Name: <span class="card-text">{{form.name}}</span></h5>
+                <h5 class="card-title ">Surname: <span class="card-text">{{form.surname}}</span></h5>
+                <h5 class="card-title ">Address: <span class="card-text">{{form.address}}</span></h5>
+                <h5 class="card-title ">Phone number: <span class="card-text">{{form.phone_number}}</span></h5>
+                <h5 class="card-title ">Created At: <span class="card-text">{{form.created_at|date:'d/m/y'}}</span></h5>
+                <h5 class="card-title ">Total Price <span class="card-text">{{form.cart.totalsum_full}}</span></h5>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        
+        <div class="card">
+            
+            <div class="card-body">
+             
+                <br>
+                
+                <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap" style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+
+
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Subcategory</th>
+                        <th>Quatity</th>
+                        <th>Total Price</th>
+                        
+
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                        {% for i in form.cart.items.all %}
+                    <tr>
+                        <td>{{i.product.name}}</td>
+                        <td>{{i.product.price_new}}</td>
+                        <td>{{i.product.subcategory}}</td>
+                        <td>{{i.quatity}}</td>
+                        <td>{{i.total_price}}</td>
+                        
+
+                        
+
+                        
+
+                    </tr>
+                    {% endfor %}
+                   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+    
+
+{% endblock main %}

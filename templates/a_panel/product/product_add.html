@@ -1,0 +1,44 @@
+{% extends 'a_panel/main.html' %}
+{% block name %}Product Add{% endblock name %}
+{% block url %}Prodcut Add{% endblock url %}
+{% block name_2 %}Prodcut Add{% endblock name_2 %}
+{% block name_2_url %}{% url 'product_all' %}{% endblock name_2_url %}
+{% block url_name %}Product{% endblock url_name %}
+
+{% block main %}
+{% load static %}
+
+    <div style="margin: 10px;">
+        
+           <form action="" method="post" enctype="multipart/form-data"  >
+            {% csrf_token %}
+            <div class="col-lg-5">
+                <div class="mb-3">
+                    <label class="form-label" for="basicpill-firstname-input">Product name</label>
+                    {{form.name}}
+                    <br>
+                    <label class="form-label" for="basicpill-firstname-input">Price New</label>
+                    {{form.price_new}}
+                    <br>
+                    <label class="form-label" for="basicpill-firstname-input">Price old</label>
+                    {{form.price_old}}
+                    <br>
+                    <label class="form-label" for="basicpill-firstname-input">Price desc</label>
+                    {{form.desc}}
+                    <br>
+                    <label class="form-label" for="basicpill-firstname-input">Choice subcategory</label>
+                    {{form.subcategory}}
+                    <br>
+                    
+                    <label class="form-label" for="basicpill-firstname-input">Image</label>
+                    {{form.image}}
+                    <br>
+                    
+                </div>
+                
+            </div>
+            <button type="submit" class="btn btn-primary">Add Subcategory</button>
+        </form>
+    </div>
+
+                {% endblock main %}

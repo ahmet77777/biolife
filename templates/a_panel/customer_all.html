@@ -1,0 +1,51 @@
+{% extends 'a_panel/main.html' %}
+{% block name %}Customer All{% endblock name %}
+{% block url %}Customer All{% endblock url %}
+{% block url_name %}Customer{% endblock url_name %}
+
+{% block main %}
+{% load static %}
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+
+
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Crated at</th>
+                            <th>Message</th>
+    
+                        </tr>
+                        </thead>
+    
+    
+                        <tbody>
+                            {% for i in all_cus %}
+                            <tr>
+                                <td>{{i.name}}</td>
+                                <td>{{i.email}}</td>
+                                <td>{{i.phone}}</td>
+                                <td>{{i.create_at|date:"d/m/y H:i "}}</td>
+                                <td>{{i.message}}</td>
+
+    
+                            </tr>
+                            {% endfor %}
+                       
+                        </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- end card-body -->
+    </div>
+    <!-- end card -->
+</div>
+
+    
+
+{% endblock main %}

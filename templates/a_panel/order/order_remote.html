@@ -1,0 +1,54 @@
+{% extends 'a_panel/main.html' %}
+{% block name %}Order remote{% endblock name %}
+{% block url %}Order remote{% endblock url %}
+{% block url_name %}Order{% endblock url_name %}
+
+{% block main %}
+{% load static %}
+<div class="col-lg-12">
+    <div class="card">
+        <div class="card-body">
+  
+
+            <div class="table-responsive">
+                <table class="table table-centered table-nowrap mb-0">
+
+
+                    <thead>
+                    <tr>
+                        <th>Full name</th>
+                        <th>Count</th>
+                        <th>Crated at</th>
+                        <th>Detail</th>
+                        <th>Restore</th>
+                        
+
+                    </tr>
+                    </thead>
+
+
+                    <tbody>
+                        {% for i in all_order %}
+                    <tr>
+                        <td>{{i.name}} {{i.surname}}</td>
+                        <td>{{i.cart.items.all.count}}</td>
+                        
+                        <td>{{i.created_at |date:"d/m/Y"}}</td>
+
+                        <td><a href="{% url 'order_detail' i.id %}" type="button" class="btn btn-info waves-effect waves-light">Detail</a></td>
+                        
+                        <td><a href="{% url 'order_restore' i.id %}" type="button" class="btn btn-success waves-effect waves-light"><i class="ri-check-line align-middle me-2"></i>Restore</a></td>
+                        
+
+                    </tr>
+                    {% endfor %}
+                   
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div> <!-- end col -->
+</div> <!-- end row -->
+    
+
+{% endblock main %}
