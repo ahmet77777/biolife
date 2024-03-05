@@ -16,11 +16,41 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,include
+from .views import *
+from rest_framework_simplejwt.views import TokenObtainPairView,TokenRefreshView,TokenVerifyView
 
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/token/verify/', TokenVerifyView.as_view(), name='token_verify'),
+
+    # Category API
+
+    path('api/v1/drf_auth/',include('rest_framework.urls')),
+    path('api/v1/category/',CategoryAPIList.as_view()),
+    path('api/v1/category/<int:pk>',CategoryAPIUpdate.as_view()),
+    path('api/v1/categorydelete/<int:pk>',CategoryAPIDestroy.as_view()),
+
+    # Subcategory API
+
+    path('api/v1/subcategory/',SubcategoryAPIList.as_view()),
+    path('api/v1/subcategory/<int:pk>',SubcategoryAPIUpdate.as_view()),
+    path('api/v1/subcategorydelete/<int:pk>',SubcategoryAPIDestroy.as_view()),
+
+    # Product API
+
+    path('api/v1/product',ProductAPIList.as_view()),
+    path('api/v1/product/<int:pk>',ProductAPIUpdate.as_view()),
+    path('api/v1/productdelete/<int:pk>',ProductAPIDestroy.as_view()),
+
+    # Order API
+
+    path('api/v1/order/',OrderAPIList.as_view()),
+    path('api/v1/orderdelete/<int:pk>',OrderAPIDestroy.as_view()),
+
     path('admin/', admin.site.urls),
     path('a_panel/',include('a_panel.urls')),
     path('',include('home.urls'))

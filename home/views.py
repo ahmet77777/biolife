@@ -285,8 +285,10 @@ def log(request):
     
 def product(request,i):
     pro = Product.objects.get(id=i)
+    cart = CartItem.objects.filter(product=pro)
     context = {
-        'product':pro
+        'product':pro,
+        'cartitem':cart
     }
     return render(request,"home/product.html",context)
 
