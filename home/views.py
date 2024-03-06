@@ -10,6 +10,7 @@ from django.contrib import messages
 from django.core.mail import send_mail
 from django.conf import settings
 import random
+from django.http import JsonResponse
 
 def index(request):
     return render(request,"home/index.html")
@@ -302,6 +303,17 @@ def addprocart(request,i):
         return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
     else:
         return redirect('logn')
+    
+def addprocart_2(request):
+ 
+    product_id = request.POST.get('product_id')
+    cart,created = Cart.objects.get_or_create(user=request.user,status= False)
+    cartitem,created = CartItem.objects.get_or_create(product=product_id,cart=cart)
+    cartitem.quatity += 1
+    cartitem.save()
+    print(request.POST.get('quantity_'))
+    return JsonResponse({},status=200)
+
 
 def procartdel(request,i):
     if request.user.is_authenticated:

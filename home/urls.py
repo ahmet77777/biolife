@@ -10,6 +10,7 @@ urlpatterns = [
     path('log/',views.log,name='log'),
     path('product/<int:i>',views.product,name='product'),
     path('addprocart/<int:i>',views.addprocart,name='addprocart'),
+    path('addprocart_2/',views.addprocart_2,name='addprocart_2'),
     path('logn/',views.logn,name='logn'),
     path('procartdel/<int:i>',views.procartdel,name='procartdel'),
     path('product_delete/<int:i>',views.product_delete,name='product_delete'),

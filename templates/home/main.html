@@ -938,6 +938,26 @@
     <script src="{% static 'home/assets/js/biolife.framework.js' %}"></script>
     <script src="{% static 'home/assets/js/functions.js' %}"></script>
     <script src="{% static 'home/assets/js/check.js' %}"></script>
+    <script>
+
+        function addProduct(productId){
+                $.ajax({
+                    type:'POST',
+                    url:'/addprocart_2/',
+                    data:{
+                        'product_id':productId,
+					    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+
+                    success:function(){
+                        
+                    }
+                });
+                
+
+                
+            }
+    </script>
 </body>
 
 </html>
