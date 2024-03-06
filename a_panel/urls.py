@@ -30,9 +30,9 @@ urlpatterns = [
 
     path('order/',views.order,name='order'),
     path('order_detail/<int:i>',views.order_detail,name='order_detail'),
-    path('order_delete/<int:i>',views.order_delete,name='order_delete'),
+    path('order_delete/',views.order_delete,name='order_delete'),
     path('order_remote/',views.order_remote,name='order_remote'),
-    path('order_restore/<int:i>',views.order_restore,name='order_restore'),
+    path('order_restore/',views.order_restore,name='order_restore'),
     path('order_or/<int:i>',views.order_or,name='order_or'),
     
     # User

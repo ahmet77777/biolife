@@ -29,7 +29,7 @@
 
                     <tbody>
                         {% for i in all_order %}
-                    <tr>
+                    <tr id="order_{{i.id}}">
                         <td>{{i.name}} {{i.surname}}</td>
                         <td>{{i.cart.items.all.count}}</td>
                         
@@ -37,7 +37,7 @@
 
                         <td><a href="{% url 'order_detail' i.id %}" type="button" class="btn btn-info waves-effect waves-light">Detail</a></td>
 
-                        <td><a href="{% url 'order_delete' i.id %}" class="btn btn-danger waves-effect waves-light"><i class="ri-delete-bin-line"></i> Delete</a></td>
+                        <td><button onclick="deleteOrder({{i.id}})" class="btn btn-danger waves-effect waves-light"><i class="ri-delete-bin-line"></i> Delete</button></td>
                         
                         {% if i.status %}
                         

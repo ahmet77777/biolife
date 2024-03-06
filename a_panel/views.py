@@ -224,20 +224,25 @@ def order_detail(request,i):
     else:
         return redirect('/a_panel/')
     
-def order_delete(request,i):
+def order_delete(request):
     if request.user.worker.role == 1 or request.user.worker.role == 3:
-        order = Order.objects.get(id=i)
+        order_id = request.POST.get('order_id')
+    
+        order = Order.objects.get(id=order_id)
         order.status_2 = 1
         order.save()
-        return HttpResponseRedirect(request.META.get('HTTP_REFERER','/'))
+        return JsonResponse({},status=200)
     else:
-        return redirect('/a_panel/')   
+        return redirect('/a_panel/')
+
+
 def order_remote(request):
     if request.user.worker.role == 1 or request.user.worker.role == 3:
         all_order = Order.objects.filter(status_2=1)
-        return render(request,"a_panel/order/order_remote.html",{'all_order':all_order})  
+        return render(request,"a_panel/order/order_remote.html",{'all_order':all_order}) 
     else:
         return redirect('/a_panel/')  
+    
 
 def order_restore(request,i):
     if request.user.worker.role == 1 or request.user.worker.role == 3:

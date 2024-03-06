@@ -732,6 +732,36 @@
                 })
             }
 
+            function deleteOrder(orderId){
+                $.ajax({
+                    type: 'POST',
+                    url: '/a_panel/order_delete/',
+                    data:{
+                        'order_id':orderId,
+					    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+
+                    success:function(){
+                        $('#order_' + orderId).remove();
+                    }
+
+                })
+            };
+
+            function restoreOrder(orderId){
+                $.ajax({
+                    type:'POST',
+                    url:'/a_panel/order_restore/',
+                    data:{
+                        'order_id':orderId,
+					    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    success:function(){
+                        $('#order_' + orderId).remove()
+                    };
+                });
+            };
+
             
         </script>
     </body>
