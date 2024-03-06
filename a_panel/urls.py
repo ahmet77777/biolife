@@ -7,14 +7,14 @@ urlpatterns = [
     path('category_add/',views.category_add,name='category_add'),
     path('category_save/',views.category_save,name='category_save'),
     path('category_all/',views.category_all,name='category_all'),
-    path('category_delete/<int:i>',views.category_delete,name='category_delete'),
+    path('category_delete/',views.category_delete,name='category_delete'),
     path('category_edit/<int:i>',views.category_edit,name='category_edit'),
 
     # Subcategory
 
     path('subcategory_add/',views.subcategory_add,name='subcategory_add'),
     path('subcategory_all/',views.subcategory_all,name='subcategory_all'),
-    path('subcategory_delete/<int:i>',views.subcategory_delete,name='subcategory_delete'),
+    path('subcategory_delete/',views.subcategory_delete,name='subcategory_delete'),
     path('subcategory_edit/<int:i>',views.subcategory_edit,name='subcategory_edit'),
     path('subcategory_pro/<int:i>',views.subcategory_pro,name='subcategory_pro'),
 
@@ -24,7 +24,7 @@ urlpatterns = [
     path('product_all/',views.product_all,name='product_all'),
     path('product_detail/<int:i>',views.product_detail,name='product_detail'),
     path('product_edit/<int:i>',views.product_edit,name='product_edit'),
-    path('product_delete/<int:i>',views.product_delete,name='product_delete'),
+    path('product_delete/',views.product_delete,name='product_delete'),
 
     # Order
 

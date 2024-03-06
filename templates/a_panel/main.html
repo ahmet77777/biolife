@@ -684,5 +684,53 @@
 
         <script src="{% static 'a_panel/assets/js/app.js' %}"></script>
 
+        <script>
+            function deleteCategory(categoryId){
+                $.ajax({
+                    type: 'POST',
+                    url: '/a_panel/category_delete/',
+                    data:{
+					'category_id':categoryId,
+					'csrfmiddlewaretoken': '{{ csrf_token }}',
+				},
+
+                success:function(){
+                    $('#category_' + categoryId).remove();
+                }
+                    
+                })
+                
+            }
+            
+            function deleteSubcategory(subcategoryId){
+                $.ajax({
+                    type: 'POST',
+                    url:'/a_panel/subcategory_delete/',
+                    data:{
+                        'subcategory_id':subcategoryId,
+					    'csrfmiddlewaretoken': '{{ csrf_token }}',
+
+                    },
+
+                    success:function(){
+                        $('#subcategory_' + subcategoryId).remove();
+                    },
+                })
+            };
+
+            function deleteProduct(productId){
+                $.ajax({
+                    type:'POST',
+                    url:'/a_panel/product_delete/',
+                    data:{
+                        'product_id':productId,
+					    'csrfmiddlewaretoken': '{{ csrf_token }}',
+                    },
+                    success:function(){
+                        $('#product_' + productId).remove()
+                    }
+                })
+            }
+        </script>
     </body>
 </html>

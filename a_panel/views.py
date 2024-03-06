@@ -8,6 +8,7 @@ from django.core.mail import send_mail
 from django.conf import settings
 import random
 from django.contrib.auth.models import User
+from django.http import JsonResponse
 
 def index(request):
 
@@ -63,10 +64,14 @@ def category_all(request):
     else:
         return redirect('/a_panel/')
 
-def category_delete(request,i):
+def category_delete(request):
     if request.user.worker.role == 1 or request.user.worker.role == 2:
-        Category.objects.get(id=i).delete()
-        return redirect('category_all')
+        category_id = request.POST.get('category_id')
+        category = Category.objects.get(id=category_id).delete()
+        
+        return JsonResponse({},status=200)
+    
+
     else:
         return redirect('/a_panel/')
 
@@ -130,10 +135,12 @@ def subcategory_edit(request,i):
     else:
         return redirect('/a_panel/')
 
-def subcategory_delete(request,i):
+def subcategory_delete(request):
     if request.user.worker.role == 1 or request.user.worker.role == 2:
-        Subcategory.objects.get(id=i).delete()
-        return redirect('subcategory_all')
+        subcategory_id = request.POST.get('subcategory_id')
+        subcategory = Subcategory.objects.get(id=subcategory_id).delete()
+        return JsonResponse({},status=200)
+    
     else:
         return redirect('/a_panel/')
 
@@ -193,10 +200,12 @@ def product_edit(request,i):
     else:
         return redirect('/a_panel/')
 
-def product_delete(request,i):
+def product_delete(request):
     if request.user.worker.role == 1 or request.user.worker.role == 2:
-        Product.objects.get(id=i).delete()
-        return redirect('product_all')
+        product_id = request.POST.get('product_id')
+        product = Product.objects.get(id=product_id).delete()
+        return JsonResponse({},status = 200)
+    
     else:
         return redirect('/a_panel/')
         

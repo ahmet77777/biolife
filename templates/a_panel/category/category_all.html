@@ -32,13 +32,13 @@
     
                         <tbody>
                             {% for i in all_category %}
-                            <tr>
+                            <tr id='category_{{i.id}}'>
                                 <td>{{i.name}}</td>
                                 <td>{{i.icon}}</td>
                                 <td>{{i.created_at|date:"d/m/y H:i "}}</td>
-                                <td><a href="{% url 'category_delete' i.id %}" type="button" class="btn btn-danger waves-effect waves-light">Delete</a></td>
+                                <td><button onclick="deleteCategory({{i.id}})" type="button" class="btn btn-danger waves-effect waves-light">Delete</button></td>
                                 <td><a href="{% url 'category_edit' i.id %}" type="button" class="btn btn-info waves-effect waves-light">Edit</a></td>
-    
+                                
                             </tr>
                             {% endfor %}
                        

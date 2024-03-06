@@ -32,14 +32,14 @@
 
 
                     <tbody>
-                        {% for i in all_pro %}
-                    <tr>
+                    {% for i in all_pro %}
+                    <tr id='product_{{i.id}}'>
                         <td>{{i.name}}</td>
                         <td>{{i.subcategory}}</td>
                         <td>{{i.price_new}}</td>
                         <td><a href="{% url 'product_detail' i.id %}" type="button" class="btn btn-info waves-effect waves-light">Detail</a></td>
 
-                        <td><a href="{% url 'product_delete' i.id %}" type="button" class="btn btn-danger waves-effect waves-light">Delete</a></td>
+                        <td><button onclick="deleteProduct({{i.id}})" type="button" class="btn btn-danger waves-effect waves-light">Delete</button></td>
                         <td><a href="{% url 'product_edit' i.id %}" type="button" class="btn btn-warning waves-effect waves-light">Edit</a></td>
                         
 
