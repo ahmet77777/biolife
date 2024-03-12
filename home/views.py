@@ -1,3 +1,4 @@
+from venv import logger
 from django.shortcuts import render,redirect,HttpResponseRedirect
 from a_panel.models import *
 from home.forms import *
@@ -194,7 +195,6 @@ def category_left(request,i):
 
     return render(request,"home/category_left.html",context_2)
 
-symbols = ['%','$','=','@']
 
 def random_generator(number):
     password = ''
@@ -204,54 +204,60 @@ def random_generator(number):
             password += str(random.randint(1,9))
         if step == 2:
             password += chr(random.randint(65,90))
-        if step == 3:
-            password += random.choice(symbols)
     return password
 
 
-def send_message_to_customer(user,pincode):
-    subject = "Welcome to We online shop"
-    message = f'''Hi, Thankyou for register
-                Your username: {user.username}
-                ActiveCode: {pincode}'''
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [user.email]
-    print(recipient_list)
-    send_mail(subject,message,recipient_list,email_from)
 
-def send_message_to_customer(user,pincode):
-    subject = "Welcome to Dana"
-    message = f'''Hi, thankyou for register
-                username: {user.username},
-                activecode: {pincode}
-    '''
-    email_from = settings.EMAIL_HOST_USER
-    recipient_list = [user.email]
-    print(recipient_list)
-    send_mail(subject, message, email_from, recipient_list)
+
+# utils.py
+
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from django.core.mail import send_mail
+from django.conf import settings
+import logging
+
+logger = logging.getLogger(__name__)
+
+def send_message_to_customer(user, pincode):
+    try:
+        subject = 'Registration Confirmation'
+        message = f'Hi {user.username}, your pincode for activation is {pincode}.'
+        from_email = settings.EMAIL_HOST_USER
+        to_email = [user.email]
+        send_mail(subject, message, from_email, to_email)
+        logger.info('Confirmation message sent to %s', user.email)
+        return True
+    except Exception as e:
+        logger.error('Failed to send confirmation message to %s: %s', user.email, str(e))
+        return False
+
+
+from django.core.exceptions import ObjectDoesNotExist
 
 def reg(request):
     if request.method == 'POST':
-        username = request.POST['username']
-        if User.objects.filter(username=username):
-            messages.error(request,'Invalid is Username')
         form = RegisterForm(request.POST)
         if form.is_valid():
-            password = request.POST['password1']
             user = form.save()
             pincode = random_generator(6)
-            email = request.POST['email']
-            print(pincode)
-            login(request,user)
-            Activ.objects.get_or_create(user=user,pincode=pincode,email=email)
-            UserPassword.objects.create(user=user,password = password)
-            send_message_to_customer(user,pincode)
-            return redirect('active')
+            login(request, user)
+            Activ.objects.get_or_create(user=user, pincode=pincode)
+            if not send_message_to_customer(user, pincode):
+                messages.error(request, 'Failed to send confirmation message')
+            else:
+                logger.info('User registered successfully: %s', user.username)
+                return redirect('active')
+        else:
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f'{field.capitalize()}: {error}')
+    else:
+        form = RegisterForm()
+    
+    return render(request, "home/register.html", {'form': form})
 
-
-        
-    form = RegisterForm()
-    return render(request,"home/register.html",{'form':form})
 
 def logn(request):
     if request.method == "POST":
@@ -268,11 +274,14 @@ def logn(request):
 
 def active(request):
     if request.method == "POST":
-        if request.user.activecode.pincode == request.POST['active']:
-            act = request.user.activecode
-            act.status = True
-            act.save()
-            return redirect('/')
+        if request.user.is_authenticated and not request.user.activecode.status == True:
+            if request.user.activecode.pincode == request.POST['active']:
+                act = request.user.activecode
+                act.status = True
+                act.save()
+                return redirect('/')
+            else:
+                messages.error(request,'Is not rigth')
     return render(request,"home/active.html")
 
 

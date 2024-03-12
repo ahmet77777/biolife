@@ -5,7 +5,6 @@ from a_panel.models import *
 class Activ(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE,related_name="activecode")
     pincode = models.CharField(max_length=30)
-    email = models.EmailField(max_length=30)
     status = models.BooleanField(default=False)
     craete_at = models.DateField(auto_now_add=True)
 

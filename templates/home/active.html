@@ -33,10 +33,19 @@
                                     <label s for="fid-name">Enter your pincode:<span class="requite">*</span></label>
                                     <input  type="text" id="fid-name" name="active" value="" class="txt-input">
                                 </p>
+                                {% if messages %}
+                                <ul>
+                                    {% for message in messages %}
+                                    <li>{{ message }}</li>
+                                    {% endfor %}
+                                </ul>
+                                {% endif %}
                                 <p class="form-row wrap-btn">
                                     <button  class="btn btn-submit btn-bold" type="submit">Authentication</button>
                                 </p>
                             </form>
+                            
+                    
                         </div>
                     </div>
 

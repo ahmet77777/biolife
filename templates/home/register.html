@@ -47,10 +47,14 @@
                                 
 
                                 </p>
+                                {% for i in messages %}
+                                <span  style="color: red;">{{i.message}}</span>
+                                {% endfor %}
+
                                 <span id="error" style="color: red;"></span>
                                 <p class="form-row wrap-btn">
                                     <button class="btn btn-submit btn-bold" type="submit">sign in</button>
-                                    <a href="#" class="link-to-help">Forgot your password</a>
+                                    <a href="/password-reset/" class="link-to-help">Forgot your password</a>
                                 </p>
                             </form>
                         </div>

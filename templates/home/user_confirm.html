@@ -1,0 +1,51 @@
+{% extends "shop/main.html" %}
+{% block main %}
+{% load i18n %}		
+	
+			<div id="content" class="site-content">
+				<!-- Breadcrumb -->
+				<div id="breadcrumb">
+					<div class="container">
+						<h2 class="title">{% translate "Confirm your account" %}</h2>
+						
+						<ul class="breadcrumb">
+							<li><a href="/" title="Home">Home</a></li>
+							<li><span>Confirm account</span></li>
+						</ul>
+					</div>
+				</div>
+			
+			
+				<div class="container">
+					<div class="login-page">
+						<div class="login-form form">
+							<div class="block-title">
+								<h2 class="title"><span>Confirm code</span></h2>
+							</div>
+						
+							<form action="" method="post" >
+								{% csrf_token %}
+								<div class="form-group">
+									<label>Enter confirm code: </label>
+									<input type="text" name='confirmcode'>
+								</div>
+								
+								
+								<div class="form-group">
+								{% for i in messages %}
+
+								<p style="color: red;">{{i.message}}</p>
+								{% endfor %}
+								</div>
+								
+									
+								<div class="form-group text-center">
+									<input type="submit" class="btn btn-primary" value="Enter code">
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+{% endblock main %}
+		
